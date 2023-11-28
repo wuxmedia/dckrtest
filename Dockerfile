@@ -1,3 +1,15 @@
-FROM alpine:3.14
-RUN apk add --no-cache mysql-client bash nginx
-CMD ["nginx"]
+FROM node:carbon
+
+LABEL maintainer="Kinsta devs"
+
+# Set the working directory to /app
+WORKDIR /app
+
+# Copy the current directory contents into the container at /app
+COPY . /app
+
+# Install any needed packages specified in package.json
+RUN npm install
+
+# Run app when the container launches
+CMD ["npm", "start"]
